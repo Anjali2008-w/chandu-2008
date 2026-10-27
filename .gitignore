@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.DS_Store
+argv.json
+extensions/
+*.log

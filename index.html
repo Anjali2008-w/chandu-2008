@@ -1,0 +1,2089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATELIER NOIR — Contemporary Apparel &amp; Mindful Tailoring</title>
+  <meta name="description" content="Sculpted outerwear, Japanese twill, and non-mulesed merino knits crafted to outlast transient seasons. Sustainable luxury fashion.">
+
+  <!-- Google Fonts: Fraunces (Headings), Plus Jakarta Sans (Body), JetBrains Mono (Codes & Prices) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              cream: 'var(--bg-primary)',
+              surface: 'var(--surface)',
+              text: 'var(--text-primary)',
+              muted: 'var(--text-muted)',
+              border: 'var(--border)',
+              accent: 'var(--accent)',
+              accentHover: 'var(--accent-hover)',
+              terracotta: '#B85D36',
+              olive: '#4A5340',
+            }
+          },
+          fontFamily: {
+            fraunces: ['Fraunces', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      /* Light Luxury Palette (Warm Paper & Rich Espresso) */
+      --bg-primary: #F9F6F0;
+      --surface: #FFFFFF;
+      --surface-elevated: #F2EDE4;
+      --text-primary: #121315;
+      --text-muted: #6E7178;
+      --border: #E5E0D5;
+      --border-light: #ECE7DE;
+      --accent: #B85D36;       /* Warm Terracotta Cinnamon */
+      --accent-hover: #9E4D2A;
+      --badge-bg: #121315;
+      --badge-text: #FFFFFF;
+      --card-shadow: 0 12px 36px -10px rgba(18, 19, 21, 0.08);
+      --grain-opacity: 0.035;
+    }
+
+    [data-theme='dark'] {
+      /* Dark Luxury Palette (Obsidian & Smoky Slate) */
+      --bg-primary: #0F1113;
+      --surface: #181A1D;
+      --surface-elevated: #22252A;
+      --text-primary: #F2EFE9;
+      --text-muted: #9BA0A8;
+      --border: #282C32;
+      --border-light: #20242A;
+      --accent: #E07A5F;       /* Warm Ember Bronze */
+      --accent-hover: #C8674D;
+      --badge-bg: #F2EFE9;
+      --badge-text: #0F1113;
+      --card-shadow: 0 12px 36px -10px rgba(0, 0, 0, 0.45);
+      --grain-opacity: 0.04;
+    }
+
+    html {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      scroll-behavior: smooth;
+      transition: background-color 280ms ease, color 280ms ease;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Subtle Film Grain Noise Overlay */
+    .grain-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 99999;
+      opacity: var(--grain-opacity);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* Editorial Typography */
+    .font-fraunces { font-family: 'Fraunces', serif; letter-spacing: -0.025em; }
+    .font-mono-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+    /* Button Sweeps */
+    .btn-sweep {
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      transition: transform 180ms ease;
+    }
+    .btn-sweep::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--accent);
+      transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: -1;
+    }
+    .btn-sweep:hover::before {
+      transform: translateX(100%);
+    }
+    .btn-sweep:active {
+      transform: scale(0.97);
+    }
+
+    /* Editorial Underlines */
+    .link-draw {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .link-draw::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 100%;
+      height: 1.5px;
+      background-color: currentColor;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .link-draw:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    /* Image zoom and image swap transitions */
+    .img-zoom-box {
+      overflow: hidden;
+      position: relative;
+    }
+    .img-zoom-box img {
+      transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 400ms ease;
+      will-change: transform;
+    }
+    .img-zoom-box:hover .primary-img {
+      opacity: 0;
+    }
+    .img-zoom-box:hover .secondary-img {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    /* Pulse for Lookbook Pins */
+    @keyframes pulse-ring {
+      0% { transform: scale(0.8); opacity: 0.8; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+    .pin-ring {
+      animation: pulse-ring 2.4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    }
+
+    /* Continuous Marquee Ticker */
+    @keyframes ticker {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+    .marquee-track {
+      display: flex;
+      width: 200%;
+      animation: ticker 28s linear infinite;
+    }
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+
+    /* Toast Notification Animation */
+    @keyframes toast-in {
+      from { transform: translateY(100%) scale(0.9); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+    .toast-anim {
+      animation: toast-in 240ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+  </style>
+</head>
+<body class="relative min-h-screen flex flex-col">
+  <!-- Subtle Grain Filter -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!-- 1. TOP ANNOUNCEMENT BAR -->
+  <div class="bg-[var(--text-primary)] text-[var(--bg-primary)] text-xs font-mono py-2.5 px-4 transition-colors duration-300">
+    <div class="max-w-[1400px] mx-auto flex items-center justify-between">
+      <div class="hidden sm:flex items-center gap-3 text-[11px] tracking-wider opacity-80">
+        <span>PARIS</span>
+        <span>&bull;</span>
+        <span>TOKYO</span>
+        <span>&bull;</span>
+        <span>NEW YORK</span>
+      </div>
+
+      <div class="flex-1 text-center font-medium text-[11px] sm:text-xs tracking-wider flex items-center justify-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-[var(--accent)] animate-ping"></span>
+        <span>AUTUMN/WINTER CAPSULE IV: COMPLIMENTARY EXPRESS GLOBAL SHIPPING OVER $150</span>
+      </div>
+
+      <!-- Currency Switcher -->
+      <div class="flex items-center gap-3">
+        <div class="relative">
+          <select id="currency-select" aria-label="Select currency" onchange="changeCurrency(this.value)" class="bg-transparent text-[var(--bg-primary)] text-[11px] font-mono cursor-pointer outline-none border-b border-white/20 py-0.5 pr-1">
+            <option value="USD" class="bg-[var(--surface)] text-[var(--text-primary)]">USD ($)</option>
+            <option value="EUR" class="bg-[var(--surface)] text-[var(--text-primary)]">EUR (€)</option>
+            <option value="GBP" class="bg-[var(--surface)] text-[var(--text-primary)]">GBP (£)</option>
+            <option value="JPY" class="bg-[var(--surface)] text-[var(--text-primary)]">JPY (¥)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. EDITORIAL NAVBAR -->
+  <header id="store-header" class="sticky top-0 z-40 bg-[var(--bg-primary)]/90 backdrop-blur-md border-b border-[var(--border)] transition-all duration-300">
+    <div class="max-w-[1400px] mx-auto px-6 py-4 sm:py-5 flex items-center justify-between">
+      <!-- Left: Mobile Menu & Category Links -->
+      <div class="flex items-center gap-8">
+        <button onclick="toggleMobileNav()" aria-label="Open navigation" class="p-2 lg:hidden text-[var(--text-primary)] hover:text-[var(--accent)]">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+
+        <nav class="hidden lg:flex items-center gap-7 font-sans text-sm font-medium tracking-wide">
+          <button onclick="filterCategory('all')" class="nav-cat-link link-draw text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors active-cat font-semibold">All Pieces</button>
+          <button onclick="filterCategory('outerwear')" class="nav-cat-link link-draw text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">Outerwear</button>
+          <button onclick="filterCategory('knitwear')" class="nav-cat-link link-draw text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">Knitwear</button>
+          <button onclick="filterCategory('trousers')" class="nav-cat-link link-draw text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">Tailoring</button>
+          <button onclick="filterCategory('footwear')" class="nav-cat-link link-draw text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">Footwear</button>
+          <button onclick="filterCategory('accessories')" class="nav-cat-link link-draw text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">Objects</button>
+          <a href="#lookbook-section" class="link-draw text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">Lookbook</a>
+        </nav>
+      </div>
+
+      <!-- Center: Brand Wordmark -->
+      <a href="#" class="text-center group">
+        <h1 class="font-fraunces text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tighter text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors">
+          ATELIER NOIR
+        </h1>
+        <span class="block font-mono-tag text-[9px] text-[var(--text-muted)] tracking-widest -mt-1">
+          STUDIO APPAREL
+        </span>
+      </a>
+
+      <!-- Right: Search, Wishlist, Theme Toggle, Cart Drawer -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        <!-- Live Search Trigger -->
+        <button onclick="openSearchModal()" aria-label="Search collection" class="p-2 text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors">
+          <i data-lucide="search" class="w-5 h-5"></i>
+        </button>
+
+        <!-- Wishlist Indicator -->
+        <button onclick="openWishlistDrawer()" aria-label="Open wishlist" class="p-2 relative text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors">
+          <i data-lucide="heart" class="w-5 h-5"></i>
+          <span id="wishlist-badge" class="absolute top-1 right-1 w-4 h-4 rounded-full bg-[var(--accent)] text-white text-[10px] font-mono flex items-center justify-center font-bold hidden">
+            0
+          </span>
+        </button>
+
+        <!-- Dark / Light Theme Toggle -->
+        <button id="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" class="p-2 text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors">
+          <i id="theme-icon-sun" data-lucide="sun" class="w-5 h-5"></i>
+          <i id="theme-icon-moon" data-lucide="moon" class="w-5 h-5 hidden"></i>
+        </button>
+
+        <!-- Cart Bag Trigger -->
+        <button onclick="openCartDrawer()" aria-label="Open shopping bag" class="flex items-center gap-2 pl-3 pr-4 py-2 rounded-full bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent)] transition-colors">
+          <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+          <span class="font-mono text-xs font-semibold" id="cart-btn-count">0</span>
+          <span class="hidden sm:inline font-sans text-xs font-medium border-l border-white/20 pl-2" id="cart-btn-total">$0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <div id="mobile-nav-drawer" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none">
+    <div class="w-4/5 max-w-sm h-full bg-[var(--surface)] p-6 flex flex-col justify-between transform -translate-x-full transition-transform duration-300">
+      <div>
+        <div class="flex items-center justify-between pb-6 border-b border-[var(--border)]">
+          <span class="font-fraunces text-2xl font-semibold">ATELIER NOIR</span>
+          <button onclick="toggleMobileNav()" class="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)]">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <nav class="flex flex-col gap-4 py-6 font-fraunces text-xl">
+          <button onclick="filterCategory('all'); toggleMobileNav();" class="text-left py-2 hover:text-[var(--accent)]">All Collections</button>
+          <button onclick="filterCategory('outerwear'); toggleMobileNav();" class="text-left py-2 hover:text-[var(--accent)]">Outerwear &amp; Coats</button>
+          <button onclick="filterCategory('knitwear'); toggleMobileNav();" class="text-left py-2 hover:text-[var(--accent)]">Merino &amp; Alpaca Knitwear</button>
+          <button onclick="filterCategory('trousers'); toggleMobileNav();" class="text-left py-2 hover:text-[var(--accent)]">Tailored Trousers</button>
+          <button onclick="filterCategory('footwear'); toggleMobileNav();" class="text-left py-2 hover:text-[var(--accent)]">Artisanal Footwear</button>
+          <button onclick="filterCategory('accessories'); toggleMobileNav();" class="text-left py-2 hover:text-[var(--accent)]">Leather Objects</button>
+          <a href="#lookbook-section" onclick="toggleMobileNav()" class="py-2 hover:text-[var(--accent)]">The Lookbook</a>
+          <a href="#philosophy-section" onclick="toggleMobileNav()" class="py-2 hover:text-[var(--accent)]">Our Philosophy</a>
+        </nav>
+      </div>
+
+      <div class="pt-6 border-t border-[var(--border)] font-mono text-xs text-[var(--text-muted)] space-y-2">
+        <p>Studio: 42 Rue de Turenne, Paris</p>
+        <p>Concierge: care@ateliernoir.com</p>
+      </div>
+    </div>
+  </div>
+
+  <main class="flex-1">
+    <!-- 3. HERO CAMPAIGN SECTION -->
+    <section class="relative w-full overflow-hidden bg-[var(--bg-primary)] border-b border-[var(--border)]">
+      <div class="max-w-[1400px] mx-auto px-6 py-12 sm:py-20 lg:py-28">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <!-- Left Editorial Copy -->
+          <div class="lg:col-span-6 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--surface)] border border-[var(--border)]">
+              <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent)]"></span>
+              <span class="font-mono-tag text-[10px] text-[var(--text-muted)]">Autumn / Winter 2026 Collection</span>
+            </div>
+
+            <h2 class="font-fraunces text-4xl sm:text-6xl lg:text-7xl font-medium tracking-tight leading-[1.05] text-[var(--text-primary)]">
+              The Architecture of Silhouette.
+            </h2>
+
+            <p class="font-sans text-base sm:text-lg text-[var(--text-muted)] max-w-xl leading-relaxed">
+              Sculpted double-breasted outerwear, heavyweight Japanese cottons, and non-mulesed Biella merino knits engineered to transcend transient fashion seasons.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-4 pt-2">
+              <a href="#catalog-section" class="btn-sweep px-8 py-4 bg-[var(--text-primary)] text-[var(--bg-primary)] font-sans text-sm font-semibold rounded-lg inline-flex items-center gap-2.5 shadow-lg">
+                <span>Shop The Capsule</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+
+              <a href="#lookbook-section" class="link-draw font-sans text-sm font-semibold text-[var(--text-primary)] hover:text-[var(--accent)] px-3 py-2">
+                Explore Lookbook Hotspots &rarr;
+              </a>
+            </div>
+
+            <!-- Metrics bar -->
+            <div class="grid grid-cols-3 gap-6 pt-8 border-t border-[var(--border)] max-w-lg">
+              <div>
+                <span class="font-fraunces text-2xl sm:text-3xl font-semibold text-[var(--text-primary)] block">100%</span>
+                <span class="font-mono-tag text-[10px] text-[var(--text-muted)]">Organic &amp; Traceable</span>
+              </div>
+              <div>
+                <span class="font-fraunces text-2xl sm:text-3xl font-semibold text-[var(--text-primary)] block">Biella</span>
+                <span class="font-mono-tag text-[10px] text-[var(--text-muted)]">Italian Mills Spun</span>
+              </div>
+              <div>
+                <span class="font-fraunces text-2xl sm:text-3xl font-semibold text-[var(--text-primary)] block">Zero</span>
+                <span class="font-mono-tag text-[10px] text-[var(--text-muted)]">Virgin Plastics</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Editorial Campaign Visual -->
+          <div class="lg:col-span-6 relative">
+            <div class="relative aspect-[4/5] sm:aspect-[3/4] rounded-2xl overflow-hidden bg-[var(--surface)] border border-[var(--border)] shadow-2xl group">
+              <img
+                src="https://images.unsplash.com/photo-1544022613-e87ca75a784a?auto=format&fit=crop&w=1400&q=85"
+                alt="Atelier Noir Autumn Winter Campaign"
+                class="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+
+              <!-- Floating Hotspot Card on Hero -->
+              <div class="absolute bottom-6 left-6 right-6 p-5 rounded-xl bg-[var(--surface)]/95 backdrop-blur-md border border-[var(--border)] text-[var(--text-primary)] shadow-xl flex items-center justify-between">
+                <div>
+                  <span class="font-mono-tag text-[10px] text-[var(--accent)] block">Featured Trench</span>
+                  <h3 class="font-fraunces text-lg font-semibold">Sirocco Oversized Trench</h3>
+                  <span class="font-mono text-sm font-semibold text-[var(--text-primary)] currency-display" data-usd="380">$380</span>
+                </div>
+                <button onclick="quickAddToCart('prod-1', 'M', 'Oatmeal')" class="px-4 py-2 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent)] text-xs font-semibold rounded-lg transition-colors flex items-center gap-1.5">
+                  <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                  <span>Add to Bag</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ticker Marquee -->
+      <div class="w-full overflow-hidden py-3 bg-[var(--surface)] border-y border-[var(--border)]">
+        <div class="marquee-track font-mono text-[11px] tracking-widest text-[var(--text-muted)] flex items-center gap-12 whitespace-nowrap">
+          <span>&bull; GOTS-CERTIFIED ORGANIC COTTON</span>
+          <span>&bull; ARTISANAL ITALIAN VEGETABLE-TANNED LEATHER</span>
+          <span>&bull; JAPANESE HIGH-DENSITY WEAVES</span>
+          <span>&bull; PLASTIC-FREE BIODEGRADABLE MAILERS</span>
+          <span>&bull; ETHICAL FAMILY-OWNED MILLS</span>
+          <span>&bull; LIFETIME GARMENT REPAIR GUARANTEE</span>
+          <span>&bull; GOTS-CERTIFIED ORGANIC COTTON</span>
+          <span>&bull; ARTISANAL ITALIAN VEGETABLE-TANNED LEATHER</span>
+          <span>&bull; JAPANESE HIGH-DENSITY WEAVES</span>
+          <span>&bull; PLASTIC-FREE BIODEGRADABLE MAILERS</span>
+          <span>&bull; ETHICAL FAMILY-OWNED MILLS</span>
+          <span>&bull; LIFETIME GARMENT REPAIR GUARANTEE</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. VISUAL DEPARTMENT CARDS -->
+    <section class="py-16 sm:py-20 max-w-[1400px] mx-auto px-6">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+        <div>
+          <span class="font-mono-tag text-[var(--accent)] block mb-1">Curated Departments</span>
+          <h2 class="font-fraunces text-3xl sm:text-4xl font-semibold text-[var(--text-primary)]">
+            Explore By Category
+          </h2>
+        </div>
+        <p class="font-sans text-sm text-[var(--text-muted)] max-w-sm">
+          Select a department to filter modern silhouettes tailored from sustainable raw materials.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <!-- Dept 1: Outerwear -->
+        <div onclick="filterCategory('outerwear')" class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer border border-[var(--border)] shadow-md">
+          <img src="https://images.unsplash.com/photo-1544022613-e87ca75a784a?auto=format&fit=crop&w=800&q=80" alt="Outerwear" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+          <div class="absolute bottom-5 left-5 right-5 text-white">
+            <span class="font-mono-tag text-[10px] text-white/70">12 Silhouettes</span>
+            <h3 class="font-fraunces text-xl sm:text-2xl font-medium mt-0.5 group-hover:text-[var(--accent)] transition-colors">Outerwear</h3>
+          </div>
+        </div>
+
+        <!-- Dept 2: Knitwear -->
+        <div onclick="filterCategory('knitwear')" class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer border border-[var(--border)] shadow-md">
+          <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=800&q=80" alt="Knitwear" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+          <div class="absolute bottom-5 left-5 right-5 text-white">
+            <span class="font-mono-tag text-[10px] text-white/70">8 Yarns</span>
+            <h3 class="font-fraunces text-xl sm:text-2xl font-medium mt-0.5 group-hover:text-[var(--accent)] transition-colors">Knitwear</h3>
+          </div>
+        </div>
+
+        <!-- Dept 3: Tailoring -->
+        <div onclick="filterCategory('trousers')" class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer border border-[var(--border)] shadow-md">
+          <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80" alt="Tailored Trousers" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+          <div class="absolute bottom-5 left-5 right-5 text-white">
+            <span class="font-mono-tag text-[10px] text-white/70">10 Fits</span>
+            <h3 class="font-fraunces text-xl sm:text-2xl font-medium mt-0.5 group-hover:text-[var(--accent)] transition-colors">Tailored Trousers</h3>
+          </div>
+        </div>
+
+        <!-- Dept 4: Footwear & Leather -->
+        <div onclick="filterCategory('footwear')" class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer border border-[var(--border)] shadow-md">
+          <img src="https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&w=800&q=80" alt="Footwear & Leather" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+          <div class="absolute bottom-5 left-5 right-5 text-white">
+            <span class="font-mono-tag text-[10px] text-white/70">Handmade Italy</span>
+            <h3 class="font-fraunces text-xl sm:text-2xl font-medium mt-0.5 group-hover:text-[var(--accent)] transition-colors">Footwear &amp; Leather</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. CORE PRODUCT CATALOG & FILTER ENGINE -->
+    <section id="catalog-section" class="py-12 sm:py-16 bg-[var(--surface)] border-y border-[var(--border)] transition-colors duration-300">
+      <div class="max-w-[1400px] mx-auto px-6">
+        <!-- Header & Filter Bar -->
+        <div class="space-y-6 mb-10">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <span class="font-mono-tag text-[var(--accent)] block">The Full Catalogue</span>
+              <h2 class="font-fraunces text-3xl sm:text-4xl font-semibold text-[var(--text-primary)]">
+                Autumn / Winter Essentials
+              </h2>
+            </div>
+
+            <!-- Sorting & Size Filters Dropdowns -->
+            <div class="flex flex-wrap items-center gap-3">
+              <!-- Gender Filter -->
+              <div class="flex rounded-lg border border-[var(--border)] p-1 bg-[var(--bg-primary)]">
+                <button onclick="filterGender('all')" class="gender-btn px-3 py-1 text-xs font-mono rounded bg-[var(--surface)] font-semibold shadow-sm">All</button>
+                <button onclick="filterGender('women')" class="gender-btn px-3 py-1 text-xs font-mono rounded text-[var(--text-muted)] hover:text-[var(--text-primary)]">Women</button>
+                <button onclick="filterGender('men')" class="gender-btn px-3 py-1 text-xs font-mono rounded text-[var(--text-muted)] hover:text-[var(--text-primary)]">Men</button>
+                <button onclick="filterGender('unisex')" class="gender-btn px-3 py-1 text-xs font-mono rounded text-[var(--text-muted)] hover:text-[var(--text-primary)]">Unisex</button>
+              </div>
+
+              <!-- Sort Dropdown -->
+              <select id="sort-select" onchange="sortProducts(this.value)" aria-label="Sort products" class="px-3 py-2 text-xs font-mono rounded-lg border border-[var(--border)] bg-[var(--bg-primary)] text-[var(--text-primary)] outline-none cursor-pointer">
+                <option value="featured">Sort: Featured Drops</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="rating">Top Rated</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Category Pill Buttons -->
+          <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2 pt-1 border-b border-[var(--border-light)]">
+            <button onclick="filterCategory('all')" class="cat-pill px-4 py-2 text-xs font-mono uppercase tracking-wider rounded-full border border-[var(--text-primary)] bg-[var(--text-primary)] text-[var(--bg-primary)] transition-all">All Items (8)</button>
+            <button onclick="filterCategory('outerwear')" class="cat-pill px-4 py-2 text-xs font-mono uppercase tracking-wider rounded-full border border-[var(--border)] bg-[var(--bg-primary)] text-[var(--text-muted)] hover:border-[var(--text-primary)] transition-all">Outerwear</button>
+            <button onclick="filterCategory('knitwear')" class="cat-pill px-4 py-2 text-xs font-mono uppercase tracking-wider rounded-full border border-[var(--border)] bg-[var(--bg-primary)] text-[var(--text-muted)] hover:border-[var(--text-primary)] transition-all">Knitwear</button>
+            <button onclick="filterCategory('trousers')" class="cat-pill px-4 py-2 text-xs font-mono uppercase tracking-wider rounded-full border border-[var(--border)] bg-[var(--bg-primary)] text-[var(--text-muted)] hover:border-[var(--text-primary)] transition-all">Trousers &amp; Shirts</button>
+            <button onclick="filterCategory('footwear')" class="cat-pill px-4 py-2 text-xs font-mono uppercase tracking-wider rounded-full border border-[var(--border)] bg-[var(--bg-primary)] text-[var(--text-muted)] hover:border-[var(--text-primary)] transition-all">Footwear</button>
+            <button onclick="filterCategory('accessories')" class="cat-pill px-4 py-2 text-xs font-mono uppercase tracking-wider rounded-full border border-[var(--border)] bg-[var(--bg-primary)] text-[var(--text-muted)] hover:border-[var(--text-primary)] transition-all">Leather Bags</button>
+          </div>
+        </div>
+
+        <!-- Dynamic Product Grid -->
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+          <!-- Populated by JavaScript -->
+        </div>
+
+        <!-- Empty state (hidden by default) -->
+        <div id="no-products-msg" class="hidden py-24 text-center">
+          <i data-lucide="package-search" class="w-12 h-12 text-[var(--text-muted)] mx-auto mb-3"></i>
+          <h3 class="font-fraunces text-2xl font-semibold">No garments match your filters</h3>
+          <p class="text-sm text-[var(--text-muted)] mt-1">Try resetting your category or gender preferences.</p>
+          <button onclick="resetFilters()" class="mt-4 px-6 py-2.5 bg-[var(--text-primary)] text-[var(--bg-primary)] text-xs font-mono rounded-lg">Reset All Filters</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. INTERACTIVE LOOKBOOK ("SHOP THE LOOK" HOTSPOTS) -->
+    <section id="lookbook-section" class="py-20 lg:py-28 max-w-[1400px] mx-auto px-6">
+      <div class="max-w-2xl mb-12">
+        <span class="font-mono-tag text-[var(--accent)] block mb-1">Interactive Styling Guide</span>
+        <h2 class="font-fraunces text-3xl sm:text-5xl font-semibold text-[var(--text-primary)]">
+          Lookbook: The Winter Uniform
+        </h2>
+        <p class="font-sans text-sm sm:text-base text-[var(--text-muted)] mt-3">
+          Hover or tap on the pulsing coordinates to inspect each piece and add it directly to your shopping bag.
+        </p>
+      </div>
+
+      <div class="relative w-full aspect-[4/3] sm:aspect-[16/9] max-h-[700px] rounded-3xl overflow-hidden border border-[var(--border)] shadow-2xl bg-[var(--surface)]">
+        <img
+          src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1600&q=85"
+          alt="Atelier Noir Lookbook Shoot"
+          class="w-full h-full object-cover object-top"
+        >
+        <div class="absolute inset-0 bg-black/20 pointer-events-none"></div>
+
+        <!-- Hotspot Pin 1: Trench -->
+        <div class="absolute top-[32%] left-[42%] z-20">
+          <button onclick="openQuickView('prod-1')" aria-label="Inspect Trench" class="relative group p-2">
+            <span class="pin-ring absolute inset-0 rounded-full bg-[var(--accent)]"></span>
+            <span class="relative w-6 h-6 rounded-full bg-white text-black flex items-center justify-center font-bold text-xs shadow-xl border border-black/20 group-hover:bg-[var(--accent)] group-hover:text-white transition-colors">
+              +
+            </span>
+            <!-- Floating Tooltip -->
+            <span class="absolute left-8 top-1/2 -translate-y-1/2 hidden group-hover:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--surface)] text-[var(--text-primary)] border border-[var(--border)] shadow-xl whitespace-nowrap text-xs font-mono">
+              <span>Sirocco Trench</span>
+              <span class="text-[var(--accent)] font-semibold">$380</span>
+            </span>
+          </button>
+        </div>
+
+        <!-- Hotspot Pin 2: Pleated Trousers -->
+        <div class="absolute top-[65%] left-[54%] z-20">
+          <button onclick="openQuickView('prod-3')" aria-label="Inspect Trousers" class="relative group p-2">
+            <span class="pin-ring absolute inset-0 rounded-full bg-[var(--accent)]"></span>
+            <span class="relative w-6 h-6 rounded-full bg-white text-black flex items-center justify-center font-bold text-xs shadow-xl border border-black/20 group-hover:bg-[var(--accent)] group-hover:text-white transition-colors">
+              +
+            </span>
+            <span class="absolute left-8 top-1/2 -translate-y-1/2 hidden group-hover:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--surface)] text-[var(--text-primary)] border border-[var(--border)] shadow-xl whitespace-nowrap text-xs font-mono">
+              <span>Pleated Trousers</span>
+              <span class="text-[var(--accent)] font-semibold">$260</span>
+            </span>
+          </button>
+        </div>
+
+        <!-- Hotspot Pin 3: Saddle Tote -->
+        <div class="absolute top-[52%] left-[32%] z-20">
+          <button onclick="openQuickView('prod-5')" aria-label="Inspect Tote" class="relative group p-2">
+            <span class="pin-ring absolute inset-0 rounded-full bg-[var(--accent)]"></span>
+            <span class="relative w-6 h-6 rounded-full bg-white text-black flex items-center justify-center font-bold text-xs shadow-xl border border-black/20 group-hover:bg-[var(--accent)] group-hover:text-white transition-colors">
+              +
+            </span>
+            <span class="absolute left-8 top-1/2 -translate-y-1/2 hidden group-hover:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--surface)] text-[var(--text-primary)] border border-[var(--border)] shadow-xl whitespace-nowrap text-xs font-mono">
+              <span>Saddle Leather Tote</span>
+              <span class="text-[var(--accent)] font-semibold">$210</span>
+            </span>
+          </button>
+        </div>
+
+        <!-- Hotspot Pin 4: Boots -->
+        <div class="absolute top-[88%] left-[58%] z-20">
+          <button onclick="openQuickView('prod-4')" aria-label="Inspect Boots" class="relative group p-2">
+            <span class="pin-ring absolute inset-0 rounded-full bg-[var(--accent)]"></span>
+            <span class="relative w-6 h-6 rounded-full bg-white text-black flex items-center justify-center font-bold text-xs shadow-xl border border-black/20 group-hover:bg-[var(--accent)] group-hover:text-white transition-colors">
+              +
+            </span>
+            <span class="absolute left-8 top-1/2 -translate-y-1/2 hidden group-hover:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--surface)] text-[var(--text-primary)] border border-[var(--border)] shadow-xl whitespace-nowrap text-xs font-mono">
+              <span>Atelier Chelsea Boot</span>
+              <span class="text-[var(--accent)] font-semibold">$340</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. BRAND PHILOSOPHY / SUSTAINABLE CRAFT BENTO -->
+    <section id="philosophy-section" class="py-20 lg:py-28 bg-[var(--surface)] border-y border-[var(--border)] transition-colors duration-300">
+      <div class="max-w-[1400px] mx-auto px-6">
+        <div class="max-w-2xl mb-14">
+          <span class="font-mono-tag text-[var(--accent)] block mb-1">Ethical Standards</span>
+          <h2 class="font-fraunces text-3xl sm:text-5xl font-semibold text-[var(--text-primary)]">
+            Garments Built to Outlast Trends
+          </h2>
+          <p class="font-sans text-sm sm:text-base text-[var(--text-muted)] mt-3">
+            We partner exclusively with multi-generational European and Japanese mills committed to traceable, low-impact fiber harvesting.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Bento 1: Raw Materials -->
+          <div class="p-8 rounded-2xl bg-[var(--bg-primary)] border border-[var(--border)] flex flex-col justify-between">
+            <div class="w-12 h-12 rounded-xl bg-[var(--surface)] border border-[var(--border)] flex items-center justify-center text-[var(--accent)] mb-6">
+              <i data-lucide="feather" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <h3 class="font-fraunces text-2xl font-semibold text-[var(--text-primary)] mb-2">100% Traceable Fibers</h3>
+              <p class="font-sans text-sm text-[var(--text-muted)] leading-relaxed">
+                From cruelty-free royal baby alpaca in Peru to GOTS-certified unbleached Japanese cottons, every yard is verified at source.
+              </p>
+            </div>
+          </div>
+
+          <!-- Bento 2: Lifetime Repair -->
+          <div class="p-8 rounded-2xl bg-[var(--bg-primary)] border border-[var(--border)] flex flex-col justify-between">
+            <div class="w-12 h-12 rounded-xl bg-[var(--surface)] border border-[var(--border)] flex items-center justify-center text-[var(--accent)] mb-6">
+              <i data-lucide="shield-check" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <h3 class="font-fraunces text-2xl font-semibold text-[var(--text-primary)] mb-2">Complimentary Atelier Repairs</h3>
+              <p class="font-sans text-sm text-[var(--text-muted)] leading-relaxed">
+                Should a seam loosen or a horn button chip within five years of purchase, ship it to our Paris studio for complimentary restoration.
+              </p>
+            </div>
+          </div>
+
+          <!-- Bento 3: Carbon Neutral -->
+          <div class="p-8 rounded-2xl bg-[var(--bg-primary)] border border-[var(--border)] flex flex-col justify-between">
+            <div class="w-12 h-12 rounded-xl bg-[var(--surface)] border border-[var(--border)] flex items-center justify-center text-[var(--accent)] mb-6">
+              <i data-lucide="box" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <h3 class="font-fraunces text-2xl font-semibold text-[var(--text-primary)] mb-2">Plastic-Free Delivery</h3>
+              <p class="font-sans text-sm text-[var(--text-muted)] leading-relaxed">
+                Orders arrive in compostable kraft boxes with unbleached organic cotton garment dust bags, never single-use virgin polybags.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. VERIFIED CUSTOMER REVIEWS -->
+    <section class="py-20 lg:py-28 max-w-[1400px] mx-auto px-6">
+      <div class="text-center max-w-xl mx-auto mb-14">
+        <span class="font-mono-tag text-[var(--accent)] block mb-1">Patron Feedback</span>
+        <h2 class="font-fraunces text-3xl sm:text-4xl font-semibold text-[var(--text-primary)]">
+          Notes from Our Wardrobe Collectors
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Review 1 -->
+        <div class="p-8 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-sm space-y-4">
+          <div class="flex items-center gap-1 text-[var(--accent)]">
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          </div>
+          <h3 class="font-fraunces text-lg font-semibold text-[var(--text-primary)]">&ldquo;The fabric weight is astonishing&rdquo;</h3>
+          <p class="font-sans text-sm text-[var(--text-muted)] leading-relaxed">
+            The Sirocco Trench has replaced three other coats in my wardrobe. The Japanese twill has a heavy, fluid drape that looks tailor-made. Received five compliments on my first morning in Paris.
+          </p>
+          <div class="pt-4 border-t border-[var(--border-light)] flex items-center justify-between text-xs">
+            <div>
+              <span class="font-semibold block text-[var(--text-primary)]">Elena Rostova</span>
+              <span class="text-[var(--text-muted)]">Zurich, Switzerland</span>
+            </div>
+            <span class="font-mono text-[10px] text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded">Verified Buyer</span>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="p-8 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-sm space-y-4">
+          <div class="flex items-center gap-1 text-[var(--accent)]">
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          </div>
+          <h3 class="font-fraunces text-lg font-semibold text-[var(--text-primary)]">&ldquo;Boots that feel broken in on day one&rdquo;</h3>
+          <p class="font-sans text-sm text-[var(--text-muted)] leading-relaxed">
+            The Vibram Morflex sole makes a colossal difference. Walked 14,000 steps through Soho and felt zero fatigue. The leather has already started developing a gorgeous soft glow.
+          </p>
+          <div class="pt-4 border-t border-[var(--border-light)] flex items-center justify-between text-xs">
+            <div>
+              <span class="font-semibold block text-[var(--text-primary)]">Marcus Vance</span>
+              <span class="text-[var(--text-muted)]">London, UK</span>
+            </div>
+            <span class="font-mono text-[10px] text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded">Verified Buyer</span>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="p-8 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-sm space-y-4">
+          <div class="flex items-center gap-1 text-[var(--accent)]">
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          </div>
+          <h3 class="font-fraunces text-lg font-semibold text-[var(--text-primary)]">&ldquo;True modern luxury without logos&rdquo;</h3>
+          <p class="font-sans text-sm text-[var(--text-muted)] leading-relaxed">
+            I appreciate clothing brands that focus purely on silhouette and yarn. The Merino Bouclé sweater is cloud-soft against bare skin. No scratching, no pilling after three gentle washes.
+          </p>
+          <div class="pt-4 border-t border-[var(--border-light)] flex items-center justify-between text-xs">
+            <div>
+              <span class="font-semibold block text-[var(--text-primary)]">Aria Chen</span>
+              <span class="text-[var(--text-muted)]">New York, USA</span>
+            </div>
+            <span class="font-mono text-[10px] text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded">Verified Buyer</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. VIP NEWSLETTER -->
+    <section class="py-20 bg-[var(--text-primary)] text-[var(--bg-primary)] transition-colors duration-300">
+      <div class="max-w-[1400px] mx-auto px-6 text-center max-w-2xl">
+        <span class="font-mono-tag text-[var(--accent)] block mb-2">The Atelier Circle</span>
+        <h2 class="font-fraunces text-3xl sm:text-5xl font-semibold mb-4">
+          Receive 10% Off Your First Capsule
+        </h2>
+        <p class="font-sans text-sm sm:text-base opacity-80 mb-8 leading-relaxed">
+          Members receive early access to seasonal runway releases, invite-only private trunk shows, and editorial styling briefs.
+        </p>
+
+        <form onsubmit="handleNewsletter(event)" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <input
+            type="email"
+            required
+            id="newsletter-email"
+            placeholder="Enter your email address..."
+            class="flex-1 px-4 py-3 text-sm rounded-lg bg-white/10 text-white placeholder-white/50 border border-white/20 outline-none focus:border-[var(--accent)] transition-colors"
+          >
+          <button type="submit" class="px-6 py-3 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white text-xs font-mono font-semibold rounded-lg uppercase tracking-wider transition-colors shrink-0">
+            Join Circle
+          </button>
+        </form>
+
+        <div id="newsletter-reward" class="hidden mt-4 p-3 rounded-lg bg-white/10 border border-white/20 text-xs font-mono text-emerald-300">
+          Welcome to the circle! Use code <strong class="text-white underline">WELCOME10</strong> at checkout for 10% off.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 10. EDITORIAL FOOTER -->
+  <footer class="bg-[var(--bg-primary)] border-t border-[var(--border)] pt-16 pb-12 transition-colors duration-300">
+    <div class="max-w-[1400px] mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-8 lg:gap-12 pb-14 border-b border-[var(--border)]">
+        <!-- Col 1: Brand -->
+        <div class="col-span-2 lg:col-span-4 space-y-4">
+          <h2 class="font-fraunces text-2xl font-semibold text-[var(--text-primary)]">ATELIER NOIR</h2>
+          <p class="font-sans text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed max-w-sm">
+            Contemporary luxury apparel founded on principles of architectural tailoring, low-impact organic raw materials, and mindful permanence.
+          </p>
+          <div class="flex items-center gap-3 pt-2 text-[var(--text-muted)]">
+            <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-full border border-[var(--border)] flex items-center justify-center hover:text-[var(--accent)] hover:border-[var(--accent)] transition-colors">
+              <i data-lucide="instagram" class="w-4 h-4"></i>
+            </a>
+            <a href="#" aria-label="Twitter" class="w-9 h-9 rounded-full border border-[var(--border)] flex items-center justify-center hover:text-[var(--accent)] hover:border-[var(--accent)] transition-colors">
+              <i data-lucide="twitter" class="w-4 h-4"></i>
+            </a>
+            <a href="#" aria-label="Mail" class="w-9 h-9 rounded-full border border-[var(--border)] flex items-center justify-center hover:text-[var(--accent)] hover:border-[var(--accent)] transition-colors">
+              <i data-lucide="mail" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Collections -->
+        <div class="col-span-1 lg:col-span-2 space-y-3 font-sans text-xs sm:text-sm">
+          <h3 class="font-mono-tag text-[10px] text-[var(--text-primary)] font-bold">Collections</h3>
+          <ul class="space-y-2.5 text-[var(--text-muted)]">
+            <li><button onclick="filterCategory('outerwear')" class="hover:text-[var(--text-primary)]">Outerwear</button></li>
+            <li><button onclick="filterCategory('knitwear')" class="hover:text-[var(--text-primary)]">Merino Knitwear</button></li>
+            <li><button onclick="filterCategory('trousers')" class="hover:text-[var(--text-primary)]">Tailored Pants</button></li>
+            <li><button onclick="filterCategory('footwear')" class="hover:text-[var(--text-primary)]">Footwear</button></li>
+            <li><button onclick="filterCategory('accessories')" class="hover:text-[var(--text-primary)]">Leather Goods</button></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Concierge -->
+        <div class="col-span-1 lg:col-span-3 space-y-3 font-sans text-xs sm:text-sm">
+          <h3 class="font-mono-tag text-[10px] text-[var(--text-primary)] font-bold">Concierge &amp; Care</h3>
+          <ul class="space-y-2.5 text-[var(--text-muted)]">
+            <li><button onclick="openSizeGuide()" class="hover:text-[var(--text-primary)] text-left">Interactive Size Guide</button></li>
+            <li><a href="#" class="hover:text-[var(--text-primary)]">Complimentary Global Shipping</a></li>
+            <li><a href="#" class="hover:text-[var(--text-primary)]">Lifetime Garment Repairs</a></li>
+            <li><a href="#" class="hover:text-[var(--text-primary)]">Returns &amp; Exchanges</a></li>
+            <li><a href="#" class="hover:text-[var(--text-primary)]">Traceability Audit 2026</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Flagships -->
+        <div class="col-span-2 lg:col-span-3 space-y-3 font-mono text-xs">
+          <h3 class="font-mono-tag text-[10px] text-[var(--text-primary)] font-bold">Atelier Salons</h3>
+          <div class="text-[var(--text-muted)] space-y-2">
+            <p><strong>Paris:</strong> 42 Rue de Turenne, Le Marais</p>
+            <p><strong>Tokyo:</strong> 5-7-22 Minamiaoyama, Minato-ku</p>
+            <p><strong>New York:</strong> 74 Wooster Street, SoHo</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Sub-bar -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-[var(--text-muted)]">
+        <p>&copy; 2026 ATELIER NOIR STUDIO SAS. All rights reserved.</p>
+        <div class="flex items-center gap-6">
+          <a href="#" class="hover:text-[var(--text-primary)]">Privacy Policy</a>
+          <a href="#" class="hover:text-[var(--text-primary)]">Terms of Sale</a>
+          <a href="#" class="hover:text-[var(--text-primary)]">Supply Chain Transparency</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 11. CART SLIDE-OVER DRAWER -->
+  <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden pointer-events-none transition-opacity duration-300 opacity-0">
+    <!-- Backdrop -->
+    <div onclick="closeCartDrawer()" class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"></div>
+
+    <div class="absolute inset-y-0 right-0 max-w-full flex pl-10 pointer-events-auto">
+      <div class="w-screen max-w-md bg-[var(--surface)] border-l border-[var(--border)] shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300" id="cart-drawer-panel">
+        <!-- Header -->
+        <div class="p-6 border-b border-[var(--border)] flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <i data-lucide="shopping-bag" class="w-5 h-5 text-[var(--accent)]"></i>
+            <h3 class="font-fraunces text-xl font-semibold">Shopping Bag</h3>
+            <span id="cart-drawer-count" class="font-mono text-xs text-[var(--text-muted)]">(0 items)</span>
+          </div>
+          <button onclick="closeCartDrawer()" aria-label="Close bag" class="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)]">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <!-- Free shipping meter -->
+        <div class="px-6 py-3 bg-[var(--bg-primary)] border-b border-[var(--border)]">
+          <div class="flex justify-between text-xs font-mono mb-1.5">
+            <span id="shipping-meter-text">Add $150 for Free Worldwide Delivery</span>
+            <span id="shipping-meter-status" class="font-semibold text-[var(--accent)]"></span>
+          </div>
+          <div class="w-full h-1.5 rounded-full bg-[var(--border)] overflow-hidden">
+            <div id="shipping-meter-bar" class="h-full bg-[var(--accent)] transition-all duration-300 w-0"></div>
+          </div>
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 divide-y divide-[var(--border-light)] space-y-4">
+          <!-- Dynamic Cart Items -->
+        </div>
+
+        <!-- Empty Cart Notice -->
+        <div id="empty-cart-view" class="flex-1 flex flex-col items-center justify-center p-8 text-center">
+          <i data-lucide="shopping-bag" class="w-12 h-12 text-[var(--text-muted)] mb-3"></i>
+          <p class="font-fraunces text-xl font-medium">Your shopping bag is empty</p>
+          <p class="text-xs text-[var(--text-muted)] mt-1">Discover pieces from our Autumn/Winter 2026 collection.</p>
+          <button onclick="closeCartDrawer(); filterCategory('all');" class="mt-4 px-6 py-2.5 bg-[var(--text-primary)] text-[var(--bg-primary)] text-xs font-mono uppercase tracking-wider rounded-lg">
+            Browse All Garments
+          </button>
+        </div>
+
+        <!-- Footer / Checkout Breakdown -->
+        <div id="cart-summary-footer" class="p-6 border-t border-[var(--border)] bg-[var(--bg-primary)] space-y-4 hidden">
+          <!-- Promo code input -->
+          <form onsubmit="applyPromoCode(event)" class="flex gap-2">
+            <input
+              type="text"
+              id="promo-input"
+              placeholder="Promo code (try ATELIER10)"
+              class="flex-1 px-3 py-2 text-xs font-mono uppercase rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[var(--text-primary)] outline-none focus:border-[var(--accent)]"
+            >
+            <button type="submit" class="px-4 py-2 bg-[var(--surface)] border border-[var(--border)] hover:bg-[var(--accent)] hover:text-white text-xs font-mono rounded-lg transition-colors">
+              Apply
+            </button>
+          </form>
+
+          <!-- Pricing summary -->
+          <div class="space-y-1.5 text-xs font-sans text-[var(--text-muted)]">
+            <div class="flex justify-between">
+              <span>Subtotal</span>
+              <span id="cart-subtotal" class="font-mono font-medium text-[var(--text-primary)]">$0</span>
+            </div>
+            <div id="cart-discount-row" class="flex justify-between text-emerald-600 hidden">
+              <span>Promo Discount (10%)</span>
+              <span id="cart-discount" class="font-mono font-medium">-$0</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Estimated Shipping</span>
+              <span id="cart-shipping" class="font-mono font-medium">Calculated at checkout</span>
+            </div>
+            <div class="flex justify-between text-sm font-semibold text-[var(--text-primary)] pt-2 border-t border-[var(--border)]">
+              <span>Total</span>
+              <span id="cart-total" class="font-mono text-base font-bold text-[var(--accent)]">$0</span>
+            </div>
+          </div>
+
+          <button onclick="openCheckoutModal()" class="btn-sweep w-full py-4 bg-[var(--text-primary)] text-[var(--bg-primary)] text-sm font-semibold rounded-lg flex items-center justify-center gap-2 shadow-xl">
+            <span>Proceed to Checkout</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12. PRODUCT QUICK VIEW MODAL -->
+  <div id="quick-view-modal" class="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm p-4 sm:p-6 flex items-center justify-center hidden">
+    <div class="relative w-full max-w-4xl bg-[var(--surface)] border border-[var(--border)] rounded-2xl shadow-2xl overflow-hidden my-8">
+      <button onclick="closeQuickView()" aria-label="Close modal" class="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-[var(--bg-primary)] border border-[var(--border)] flex items-center justify-center text-[var(--text-primary)] hover:bg-[var(--accent)] hover:text-white transition-colors">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="grid grid-cols-1 md:grid-cols-2">
+        <!-- Modal Left Image Gallery -->
+        <div class="relative aspect-[3/4] bg-[var(--bg-primary)] overflow-hidden">
+          <img id="qv-img" src="" alt="" class="w-full h-full object-cover">
+          <div class="absolute bottom-4 left-4 flex gap-2" id="qv-color-swatches">
+            <!-- Swatches dynamically added -->
+          </div>
+        </div>
+
+        <!-- Modal Right Product Info -->
+        <div class="p-6 sm:p-8 flex flex-col justify-between space-y-6">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span id="qv-category" class="font-mono-tag text-[10px] text-[var(--accent)]"></span>
+              <span id="qv-stock" class="font-mono text-[10px] text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded">In Stock</span>
+            </div>
+
+            <h2 id="qv-title" class="font-fraunces text-2xl sm:text-3xl font-semibold text-[var(--text-primary)]"></h2>
+
+            <div class="flex items-center gap-3">
+              <span id="qv-price" class="font-mono text-xl font-bold text-[var(--text-primary)]"></span>
+              <span id="qv-orig-price" class="font-mono text-sm line-through text-[var(--text-muted)] hidden"></span>
+            </div>
+
+            <p id="qv-desc" class="font-sans text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed"></p>
+
+            <div class="py-2 border-y border-[var(--border)] space-y-1.5 text-xs font-sans">
+              <p><strong class="font-mono text-[10px] uppercase text-[var(--text-primary)]">Composition:</strong> <span id="qv-comp" class="text-[var(--text-muted)]"></span></p>
+              <p><strong class="font-mono text-[10px] uppercase text-[var(--text-primary)]">Silhouette:</strong> <span id="qv-fit" class="text-[var(--text-muted)]"></span></p>
+            </div>
+          </div>
+
+          <!-- Size Selector -->
+          <div class="space-y-4">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono-tag text-[10px] text-[var(--text-primary)] font-bold">Select Size</span>
+                <button onclick="openSizeGuide()" class="font-mono text-[11px] underline text-[var(--accent)]">Size Guide</button>
+              </div>
+              <div id="qv-sizes" class="flex flex-wrap gap-2">
+                <!-- Size pills dynamically added -->
+              </div>
+            </div>
+
+            <button id="qv-add-btn" onclick="submitQuickViewAdd()" class="btn-sweep w-full py-3.5 bg-[var(--text-primary)] text-[var(--bg-primary)] font-sans text-sm font-semibold rounded-lg flex items-center justify-center gap-2 shadow-lg">
+              <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+              <span>Add to Shopping Bag</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 13. INTERACTIVE CHECKOUT MODAL -->
+  <div id="checkout-modal" class="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-md p-4 flex items-center justify-center hidden">
+    <div class="relative w-full max-w-xl bg-[var(--surface)] border border-[var(--border)] rounded-2xl shadow-2xl p-6 sm:p-8 my-8">
+      <button onclick="closeCheckoutModal()" aria-label="Close checkout" class="absolute top-4 right-4 p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)]">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Step 1: Checkout Form -->
+      <div id="checkout-form-container">
+        <div class="mb-6">
+          <span class="font-mono-tag text-[var(--accent)] block">Simulated Checkout</span>
+          <h2 class="font-fraunces text-2xl sm:text-3xl font-semibold">Complete Your Order</h2>
+          <p class="font-sans text-xs text-[var(--text-muted)] mt-1">Zero actual credit card required. Test our live checkout engine.</p>
+        </div>
+
+        <form onsubmit="handlePlaceOrder(event)" class="space-y-4">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block font-mono text-[10px] uppercase text-[var(--text-muted)] mb-1">First Name</label>
+              <input type="text" required placeholder="Elena" value="Elena" class="w-full px-3 py-2 text-xs bg-[var(--bg-primary)] border border-[var(--border)] rounded-lg outline-none focus:border-[var(--accent)]">
+            </div>
+            <div>
+              <label class="block font-mono text-[10px] uppercase text-[var(--text-muted)] mb-1">Last Name</label>
+              <input type="text" required placeholder="Rostova" value="Rostova" class="w-full px-3 py-2 text-xs bg-[var(--bg-primary)] border border-[var(--border)] rounded-lg outline-none focus:border-[var(--accent)]">
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-mono text-[10px] uppercase text-[var(--text-muted)] mb-1">Email for Dispatch &amp; Tracking</label>
+            <input type="email" required placeholder="elena@rostova.ch" value="elena@rostova.ch" class="w-full px-3 py-2 text-xs bg-[var(--bg-primary)] border border-[var(--border)] rounded-lg outline-none focus:border-[var(--accent)]">
+          </div>
+
+          <div>
+            <label class="block font-mono text-[10px] uppercase text-[var(--text-muted)] mb-1">Shipping Address</label>
+            <input type="text" required placeholder="Bahnhofstrasse 18, 8001 Zürich" value="Bahnhofstrasse 18, 8001 Zürich" class="w-full px-3 py-2 text-xs bg-[var(--bg-primary)] border border-[var(--border)] rounded-lg outline-none focus:border-[var(--accent)]">
+          </div>
+
+          <!-- Payment Method Radios -->
+          <div class="pt-2">
+            <label class="block font-mono text-[10px] uppercase text-[var(--text-muted)] mb-2">Payment Method</label>
+            <div class="grid grid-cols-3 gap-2">
+              <label class="p-3 rounded-lg border border-[var(--accent)] bg-[var(--bg-primary)] flex flex-col items-center gap-1 cursor-pointer">
+                <input type="radio" name="payment" checked class="accent-[var(--accent)]">
+                <span class="text-xs font-semibold">Apple Pay</span>
+              </label>
+              <label class="p-3 rounded-lg border border-[var(--border)] bg-[var(--bg-primary)] flex flex-col items-center gap-1 cursor-pointer">
+                <input type="radio" name="payment" class="accent-[var(--accent)]">
+                <span class="text-xs font-semibold">Credit Card</span>
+              </label>
+              <label class="p-3 rounded-lg border border-[var(--border)] bg-[var(--bg-primary)] flex flex-col items-center gap-1 cursor-pointer">
+                <input type="radio" name="payment" class="accent-[var(--accent)]">
+                <span class="text-xs font-semibold">Klarna (3x)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Total Due Box -->
+          <div class="p-4 rounded-xl bg-[var(--bg-primary)] border border-[var(--border)] flex items-center justify-between">
+            <span class="font-sans text-xs text-[var(--text-muted)]">Total Amount to Charge:</span>
+            <span id="checkout-total-display" class="font-mono text-xl font-bold text-[var(--accent)]">$0</span>
+          </div>
+
+          <button type="submit" id="place-order-btn" class="btn-sweep w-full py-4 bg-[var(--text-primary)] text-[var(--bg-primary)] font-sans text-sm font-semibold rounded-lg flex items-center justify-center gap-2 shadow-xl">
+            <span>Authorize &amp; Place Order</span>
+            <i data-lucide="check-circle" class="w-4 h-4"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- Step 2: Order Placed Success View -->
+      <div id="checkout-success-view" class="text-center py-6 space-y-4 hidden">
+        <div class="w-16 h-16 rounded-full bg-emerald-500/10 text-emerald-500 mx-auto flex items-center justify-center">
+          <i data-lucide="check" class="w-8 h-8"></i>
+        </div>
+        <h3 class="font-fraunces text-3xl font-semibold">Order Confirmed</h3>
+        <p class="font-mono text-xs text-[var(--text-muted)]">Order Reference: <strong id="order-id" class="text-[var(--text-primary)]">AN-82941</strong></p>
+        <p class="font-sans text-sm text-[var(--text-muted)] max-w-md mx-auto leading-relaxed">
+          Thank you, Elena. A confirmation dispatch note with your tracking manifest has been simulated and sent to your email.
+        </p>
+        <button onclick="closeCheckoutModal(); filterCategory('all');" class="mt-4 px-8 py-3 bg-[var(--text-primary)] text-[var(--bg-primary)] text-xs font-mono uppercase tracking-wider rounded-lg">
+          Continue Browsing
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 14. INTERACTIVE SIZE GUIDE MODAL -->
+  <div id="size-guide-modal" class="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm p-4 flex items-center justify-center hidden">
+    <div class="relative w-full max-w-xl bg-[var(--surface)] border border-[var(--border)] rounded-2xl shadow-2xl p-6 sm:p-8 my-8">
+      <button onclick="closeSizeGuide()" aria-label="Close size guide" class="absolute top-4 right-4 p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)]">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <span class="font-mono-tag text-[var(--accent)] block mb-1">Tailoring Standards</span>
+      <h2 class="font-fraunces text-2xl font-semibold mb-2">International Sizing Table</h2>
+      <p class="font-sans text-xs text-[var(--text-muted)] mb-6">Measurements correspond to body dimensions in centimeters (inches in brackets).</p>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs font-sans text-left border-collapse">
+          <thead>
+            <tr class="border-b border-[var(--border)] font-mono text-[10px] text-[var(--text-muted)]">
+              <th class="py-2.5">Size</th>
+              <th class="py-2.5">Chest / Bust</th>
+              <th class="py-2.5">Waist</th>
+              <th class="py-2.5">Hips</th>
+              <th class="py-2.5">EU / US</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[var(--border-light)] font-mono text-xs">
+            <tr><td class="py-2.5 font-bold">XS</td><td>82-86 cm (33-34")</td><td>64-68 cm (25-27")</td><td>88-92 cm (35-36")</td><td>34 / 2</td></tr>
+            <tr><td class="py-2.5 font-bold">S</td><td>86-92 cm (34-36")</td><td>68-74 cm (27-29")</td><td>92-98 cm (36-38")</td><td>36 / 4-6</td></tr>
+            <tr><td class="py-2.5 font-bold">M</td><td>92-98 cm (36-38")</td><td>74-80 cm (29-31")</td><td>98-104 cm (38-41")</td><td>38 / 8-10</td></tr>
+            <tr><td class="py-2.5 font-bold">L</td><td>98-106 cm (38-41")</td><td>80-88 cm (31-34")</td><td>104-112 cm (41-44")</td><td>40 / 12</td></tr>
+            <tr><td class="py-2.5 font-bold">XL</td><td>106-114 cm (41-45")</td><td>88-96 cm (34-38")</td><td>112-120 cm (44-47")</td><td>42 / 14</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-xs text-[var(--text-muted)] mt-6 italic">
+        * Our trench coats and outerwear are designed with generous architectural ease. Size down if you prefer a strictly contoured profile.
+      </p>
+    </div>
+  </div>
+
+  <!-- 15. WISHLIST SLIDE-OVER DRAWER -->
+  <div id="wishlist-drawer" class="fixed inset-0 z-50 overflow-hidden pointer-events-none transition-opacity duration-300 opacity-0">
+    <div onclick="closeWishlistDrawer()" class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"></div>
+    <div class="absolute inset-y-0 right-0 max-w-full flex pl-10 pointer-events-auto">
+      <div class="w-screen max-w-md bg-[var(--surface)] border-l border-[var(--border)] shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300" id="wishlist-drawer-panel">
+        <div class="p-6 border-b border-[var(--border)] flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <i data-lucide="heart" class="w-5 h-5 text-[var(--accent)]"></i>
+            <h3 class="font-fraunces text-xl font-semibold">Your Saved Pieces</h3>
+            <span id="wishlist-drawer-count" class="font-mono text-xs text-[var(--text-muted)]">(0)</span>
+          </div>
+          <button onclick="closeWishlistDrawer()" aria-label="Close wishlist" class="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)]">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <div id="wishlist-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+          <!-- Populated by JS -->
+        </div>
+
+        <div id="empty-wishlist-view" class="flex-1 flex flex-col items-center justify-center p-8 text-center">
+          <i data-lucide="heart" class="w-12 h-12 text-[var(--text-muted)] mb-3"></i>
+          <p class="font-fraunces text-xl font-medium">No saved pieces yet</p>
+          <p class="text-xs text-[var(--text-muted)] mt-1">Tap the heart icon on any garment to save it for later.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 16. SEARCH OVERLAY MODAL -->
+  <div id="search-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md p-4 sm:p-8 flex items-start justify-center pt-24 hidden">
+    <div class="w-full max-w-2xl bg-[var(--surface)] border border-[var(--border)] rounded-2xl shadow-2xl overflow-hidden p-6 space-y-4">
+      <div class="flex items-center gap-3 pb-3 border-b border-[var(--border)]">
+        <i data-lucide="search" class="w-5 h-5 text-[var(--text-muted)]"></i>
+        <input
+          type="text"
+          id="search-input"
+          oninput="handleSearch(this.value)"
+          placeholder="Search trench, merino, boots, trousers..."
+          class="flex-1 text-base sm:text-lg font-sans bg-transparent outline-none text-[var(--text-primary)] placeholder-[var(--text-muted)]"
+          autofocus
+        >
+        <button onclick="closeSearchModal()" class="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)]">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div id="search-results" class="max-h-80 overflow-y-auto space-y-2">
+        <p class="text-xs font-mono text-[var(--text-muted)]">Type to find garments, silhouettes, or fabrics...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 17. FLOATING TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-[1000] space-y-2 pointer-events-none">
+    <!-- Dynamic Toasts -->
+  </div>
+
+  <!-- SCRIPTS: STORE ENGINE & INTERACTIONS -->
+  <script>
+    // --- 1. PRODUCT DATABASE ---
+    const PRODUCTS = [
+      {
+        id: 'prod-1',
+        name: 'Sirocco Oversized Trench',
+        tagline: 'Double-breasted Japanese twill with storm flap',
+        price: 380,
+        originalPrice: 440,
+        category: 'outerwear',
+        gender: 'unisex',
+        badge: 'New Drop',
+        rating: 4.9,
+        reviewsCount: 42,
+        images: [
+          'https://images.unsplash.com/photo-1544022613-e87ca75a784a?auto=format&fit=crop&w=1000&q=80',
+          'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=80'
+        ],
+        colors: [
+          { name: 'Oatmeal', hex: '#E5DFD3', image: 'https://images.unsplash.com/photo-1544022613-e87ca75a784a?auto=format&fit=crop&w=1000&q=80' },
+          { name: 'Pitch Black', hex: '#1C1C1E', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=80' }
+        ],
+        sizes: ['XS', 'S', 'M', 'L', 'XL'],
+        description: 'Constructed from high-density Japanese cotton twill with natural water repellency. Features drop shoulders, an exaggerated lapel, horn button closures, and a belted waist for fluid drapery.',
+        composition: '100% GOTS-Certified Organic Japanese Cotton',
+        fit: 'Generous architectural silhouette. Size down for a tailored profile.',
+        inStock: true
+      },
+      {
+        id: 'prod-2',
+        name: 'Merino Bouclé Mockneck',
+        tagline: '7-gauge textured Australian wool with raw edges',
+        price: 240,
+        category: 'knitwear',
+        gender: 'women',
+        badge: 'Best Seller',
+        rating: 5.0,
+        reviewsCount: 88,
+        images: [
+          'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=1000&q=80',
+          'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=1000&q=80'
+        ],
+        colors: [
+          { name: 'Ecru Chalk', hex: '#F0ECE1', image: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=1000&q=80' },
+          { name: 'Warm Terracotta', hex: '#B85D36', image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1000&q=80' }
+        ],
+        sizes: ['XS', 'S', 'M', 'L'],
+        description: 'Spun from superfine non-mulesed merino fibers in Biella, Italy. The bouclé yarn produces an inviting cloud-like tactile texture while remaining breathable.',
+        composition: '85% Superfine Merino Wool, 15% Mulberry Silk',
+        fit: 'Boxy, relaxed drape with ribbed high neck and elongated cuffs.',
+        inStock: true
+      },
+      {
+        id: 'prod-3',
+        name: 'Pleated Wide-Leg Trousers',
+        tagline: 'Double front pleats in fluid tropical wool',
+        price: 260,
+        category: 'trousers',
+        gender: 'unisex',
+        badge: 'Archival',
+        rating: 4.8,
+        reviewsCount: 35,
+        images: [
+          'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1000&q=80',
+          'https://images.unsplash.com/photo-1544022613-e87ca75a784a?auto=format&fit=crop&w=1000&q=80'
+        ],
+        colors: [
+          { name: 'Espresso', hex: '#2A1F1D', image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1000&q=80' },
+          { name: 'Sand Taupe', hex: '#C2B8A3', image: 'https://images.unsplash.com/photo-1544022613-e87ca75a784a?auto=format&fit=crop&w=1000&q=80' }
+        ],
+        sizes: ['28', '30', '32', '34', '36'],
+        description: 'Deep double forward pleats create an elegant cascade through the leg with a generous break over footwear. Cut from worsted wool woven in Yorkshire.',
+        composition: '100% Virgin Worsted Wool',
+        fit: 'High rise with a generous, straight wide leg.',
+        inStock: true
+      },
+      {
+        id: 'prod-4',
+        name: 'Atelier Minimalist Chelsea Boot',
+        tagline: 'Seamless Italian calfskin with Vibram morflex sole',
+        price: 340,
+        originalPrice: 395,
+        category: 'footwear',
+        gender: 'men',
+        badge: 'Limited 50',
+        rating: 4.9,
+        reviewsCount: 57,
+        images: [
+          'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&w=1000&q=80',
+          'https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=1000&q=80'
+        ],
+        colors: [
+          { name: 'Matte Black', hex: '#111111', image: 'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&w=1000&q=80' },
+          { name: 'Cigar Suede', hex: '#583D28', image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=1000&q=80' }
+        ],
+        sizes: ['40', '41', '42', '43', '44', '45'],
+        description: 'Handmade in Civitanova Marche, Italy. Cut from full-grain vegetable-tanned calfskin with concealed elastic gussets and a featherweight Vibram lug sole.',
+        composition: '100% Tuscan Calf Leather, Vibram Morflex Sole',
+        fit: 'True to European sizing. Includes calfskin removable insole.',
+        inStock: true
+      },
+      {
+        id: 'prod-5',
+        name: 'Saddle Leather Crossbody Tote',
+        tagline: 'Unlined saddle hide with hand-painted beveled edges',
+        price: 210,
+        category: 'accessories',
+        gender: 'unisex',
+        badge: 'Best Seller',
+        rating: 4.9,
+        reviewsCount: 64,
+        images: [
+          'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1000&q=80',
+          'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=1000&q=80'
+        ],
+        colors: [
+          { name: 'Raw Ochre', hex: '#A86538', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1000&q=80' },
+          { name: 'Onyx Black', hex: '#1A1A1A', image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=1000&q=80' }
+        ],
+        sizes: ['One Size'],
+        description: 'Constructed from 4mm thick bridle leather that ages with deep patina. Solid brass hardware cast in Kyoto, interior laptop sleeve, and detachable crossbody strap.',
+        composition: 'Vegetable-Tanned Saddle Leather, Cast Brass',
+        fit: 'Accommodates up to 15-inch laptops and notebooks.',
+        inStock: true
+      },
+      {
+        id: 'prod-6',
+        name: 'Heavyweight Waffle Knit Cardigan',
+        tagline: 'Five-button Chunky Peruvian alpaca blend',
+        price: 290,
+        category: 'knitwear',
+        gender: 'men',
+        badge: 'New Drop',
+        rating: 4.8,
+        reviewsCount: 29,
+        images: [
+          'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=1000&q=80',
+          'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=1000&q=80'
+        ],
+        colors: [
+          { name: 'Smoky Moss', hex: '#495048', image: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=1000&q=80' },
+          { name: 'Ivory Bone', hex: '#EBE5D8', image: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=1000&q=80' }
+        ],
+        sizes: ['S', 'M', 'L', 'XL'],
+        description: 'Knit from ethically sheared royal baby alpaca and organic highland wool in Arequipa, Peru. Chunky waffle stitch provides warmth without excessive bulk.',
+        composition: '65% Royal Baby Alpaca, 35% Organic Wool',
+        fit: 'Relaxed cardigan silhouette with drop shoulders.',
+        inStock: true
+      },
+      {
+        id: 'prod-7',
+        name: 'Raw Silk Relaxed Camp Shirt',
+        tagline: 'Slub textured noil silk with Mother of Pearl buttons',
+        price: 185,
+        originalPrice: 220,
+        category: 'trousers',
+        gender: 'unisex',
+        badge: 'Sale',
+        rating: 4.7,
+        reviewsCount: 51,
+        images: [
+          'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=1000&q=80',
+          'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1000&q=80'
+        ],
+        colors: [
+          { name: 'Chalk White', hex: '#F7F5EE', image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=1000&q=80' },
+          { name: 'Charcoal Black', hex: '#232323', image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1000&q=80' }
+        ],
+        sizes: ['XS', 'S', 'M', 'L', 'XL'],
+        description: 'Spun from raw silk noil with distinctive organic slub and matte tactile character. Features a relaxed convertible camp collar and straight hem with side slits.',
+        composition: '100% Raw Silk Noil',
+        fit: 'Easy boxy fit, designed to drape away from the body.',
+        inStock: true
+      },
+      {
+        id: 'prod-8',
+        name: 'Tailored Wool Balmacaan Coat',
+        tagline: 'Single-breasted raglan sleeve coat in storm melton wool',
+        price: 460,
+        category: 'outerwear',
+        gender: 'men',
+        badge: 'Archival',
+        rating: 5.0,
+        reviewsCount: 31,
+        images: [
+          'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1000&q=80',
+          'https://images.unsplash.com/photo-1544022613-e87ca75a784a?auto=format&fit=crop&w=1000&q=80'
+        ],
+        colors: [
+          { name: 'Camel Tan', hex: '#A67B5B', image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1000&q=80' },
+          { name: 'Midnight Navy', hex: '#17202A', image: 'https://images.unsplash.com/photo-1544022613-e87ca75a784a?auto=format&fit=crop&w=1000&q=80' }
+        ],
+        sizes: ['38', '40', '42', '44'],
+        description: 'An architectural outerwear masterpiece. Raglan shoulders allow effortless layering over chunky knitwear or suit jackets. Finished with hidden placket and cupro lining.',
+        composition: '100% Heavyweight Melton Wool (750 GSM)',
+        fit: 'Longline overcoat hitting below the knee.',
+        inStock: true
+      }
+    ];
+
+    // --- 2. STATE STORE ---
+    let cart = JSON.parse(localStorage.getItem('an_cart') || '[]');
+    let wishlist = JSON.parse(localStorage.getItem('an_wishlist') || '[]');
+    let currentCurrency = localStorage.getItem('an_currency') || 'USD';
+    let currentCategory = 'all';
+    let currentGender = 'all';
+    let currentSort = 'featured';
+    let currentSearch = '';
+    let promoDiscount = 0; // percentage
+    let activeQuickViewId = null;
+    let selectedQvSize = null;
+    let selectedQvColor = null;
+
+    const CURRENCY_MAP = {
+      USD: { symbol: '$', rate: 1.0 },
+      EUR: { symbol: '€', rate: 0.92 },
+      GBP: { symbol: '£', rate: 0.78 },
+      JPY: { symbol: '¥', rate: 152.0 }
+    };
+
+    function formatPrice(usdAmount) {
+      const { symbol, rate } = CURRENCY_MAP[currentCurrency];
+      const converted = Math.round(usdAmount * rate);
+      return `${symbol}${converted.toLocaleString()}`;
+    }
+
+    function changeCurrency(newCurr) {
+      currentCurrency = newCurr;
+      localStorage.setItem('an_currency', newCurr);
+      renderProducts();
+      renderCart();
+      updateHeroPrice();
+      lucide.createIcons();
+    }
+
+    function updateHeroPrice() {
+      document.querySelectorAll('.currency-display').forEach(el => {
+        const usd = parseFloat(el.getAttribute('data-usd') || '0');
+        el.textContent = formatPrice(usd);
+      });
+    }
+
+    // --- 3. THEME TOGGLE (Warm Paper vs Obsidian) ---
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('an_theme', theme);
+      const sun = document.getElementById('theme-icon-sun');
+      const moon = document.getElementById('theme-icon-moon');
+      if (sun && moon) {
+        if (theme === 'dark') {
+          sun.classList.add('hidden');
+          moon.classList.remove('hidden');
+        } else {
+          sun.classList.remove('hidden');
+          moon.classList.add('hidden');
+        }
+      }
+    }
+
+    function toggleTheme() {
+      const active = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(active);
+    }
+
+    const savedTheme = localStorage.getItem('an_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    applyTheme(savedTheme);
+
+    // --- 4. RENDER PRODUCT CATALOG ---
+    function renderProducts() {
+      const grid = document.getElementById('product-grid');
+      const emptyMsg = document.getElementById('no-products-msg');
+      if (!grid) return;
+
+      let filtered = PRODUCTS.filter(p => {
+        const matchCat = currentCategory === 'all' || p.category === currentCategory;
+        const matchGender = currentGender === 'all' || p.gender === currentGender || p.gender === 'unisex';
+        const matchSearch = currentSearch === '' || 
+          p.name.toLowerCase().includes(currentSearch.toLowerCase()) || 
+          p.tagline.toLowerCase().includes(currentSearch.toLowerCase()) ||
+          p.category.toLowerCase().includes(currentSearch.toLowerCase());
+        return matchCat && matchGender && matchSearch;
+      });
+
+      // Sort
+      if (currentSort === 'price-asc') filtered.sort((a, b) => a.price - b.price);
+      else if (currentSort === 'price-desc') filtered.sort((a, b) => b.price - a.price);
+      else if (currentSort === 'rating') filtered.sort((a, b) => b.rating - a.rating);
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyMsg.classList.remove('hidden');
+        return;
+      }
+
+      emptyMsg.classList.add('hidden');
+
+      grid.innerHTML = filtered.map(p => {
+        const isWishlisted = wishlist.includes(p.id);
+        const secondImg = p.images[1] || p.images[0];
+
+        return `
+          <div class="group relative flex flex-col justify-between" id="card-${p.id}">
+            <!-- Image Frame -->
+            <div class="img-zoom-box aspect-[3/4] rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] overflow-hidden relative cursor-pointer" onclick="openQuickView('${p.id}')">
+              <!-- Primary Image -->
+              <img src="${p.images[0]}" alt="${p.name}" loading="lazy" class="primary-img absolute inset-0 w-full h-full object-cover">
+              <!-- Hover Angle Image -->
+              <img src="${secondImg}" alt="${p.name} Alternate View" loading="lazy" class="secondary-img absolute inset-0 w-full h-full object-cover opacity-0">
+
+              <!-- Badge -->
+              ${p.badge ? `
+                <span class="absolute top-3 left-3 font-mono-tag text-[9px] px-2.5 py-1 rounded-full bg-[var(--badge-bg)] text-[var(--badge-text)] shadow-sm">
+                  ${p.badge}
+                </span>
+              ` : ''}
+
+              <!-- Wishlist Heart Button -->
+              <button onclick="event.stopPropagation(); toggleWishlist('${p.id}')" aria-label="Save to wishlist" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-[var(--surface)]/90 backdrop-blur-md border border-[var(--border)] flex items-center justify-center text-[var(--text-primary)] hover:text-[var(--accent)] transition-transform active:scale-90">
+                <i data-lucide="heart" class="w-4 h-4 ${isWishlisted ? 'fill-[var(--accent)] text-[var(--accent)]' : ''}"></i>
+              </button>
+
+              <!-- Quick Size Selector Overlay on Hover -->
+              <div class="absolute inset-x-3 bottom-3 p-2 rounded-xl bg-[var(--surface)]/95 backdrop-blur-md border border-[var(--border)] opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 hidden sm:flex items-center justify-between text-xs" onclick="event.stopPropagation()">
+                <span class="font-mono text-[10px] text-[var(--text-muted)] pl-1">Quick Add:</span>
+                <div class="flex gap-1">
+                  ${p.sizes.slice(0, 4).map(s => `
+                    <button onclick="quickAddToCart('${p.id}', '${s}', '${p.colors[0].name}')" class="w-7 h-7 rounded border border-[var(--border)] hover:border-[var(--text-primary)] hover:bg-[var(--text-primary)] hover:text-[var(--bg-primary)] font-mono text-[10px] flex items-center justify-center transition-colors">
+                      ${s}
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+
+            <!-- Details -->
+            <div class="pt-4 space-y-2">
+              <!-- Color Swatches -->
+              <div class="flex items-center gap-1.5" onclick="event.stopPropagation()">
+                ${p.colors.map((c, i) => `
+                  <button
+                    onclick="swapCardColor('${p.id}', '${c.image}', this)"
+                    title="${c.name}"
+                    style="background-color: ${c.hex};"
+                    class="w-3.5 h-3.5 rounded-full border border-black/20 ${i === 0 ? 'ring-1 ring-offset-1 ring-[var(--text-primary)]' : ''} transition-all"
+                  ></button>
+                `).join('')}
+              </div>
+
+              <div class="flex items-start justify-between gap-2">
+                <h3 onclick="openQuickView('${p.id}')" class="font-fraunces text-base font-semibold text-[var(--text-primary)] hover:text-[var(--accent)] cursor-pointer transition-colors">
+                  ${p.name}
+                </h3>
+                <div class="text-right">
+                  <span class="font-mono text-sm font-semibold text-[var(--text-primary)]">${formatPrice(p.price)}</span>
+                  ${p.originalPrice ? `<span class="block font-mono text-xs line-through text-[var(--text-muted)]">${formatPrice(p.originalPrice)}</span>` : ''}
+                </div>
+              </div>
+
+              <p class="font-sans text-xs text-[var(--text-muted)] line-clamp-1">
+                ${p.tagline}
+              </p>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    function swapCardColor(prodId, newImg, btn) {
+      const card = document.getElementById(`card-${prodId}`);
+      if (card) {
+        const prim = card.querySelector('.primary-img');
+        if (prim) prim.src = newImg;
+        card.querySelectorAll('button[title]').forEach(b => b.classList.remove('ring-1', 'ring-offset-1', 'ring-[var(--text-primary)]'));
+        btn.classList.add('ring-1', 'ring-offset-1', 'ring-[var(--text-primary)]');
+      }
+    }
+
+    // --- 5. CATEGORY & GENDER FILTERING ---
+    function filterCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        btn.classList.remove('border-[var(--text-primary)]', 'bg-[var(--text-primary)]', 'text-[var(--bg-primary)]');
+        btn.classList.add('border-[var(--border)]', 'bg-[var(--bg-primary)]', 'text-[var(--text-muted)]');
+      });
+      document.querySelectorAll('.nav-cat-link').forEach(btn => {
+        btn.classList.remove('text-[var(--text-primary)]', 'font-semibold');
+        btn.classList.add('text-[var(--text-muted)]');
+      });
+
+      const activePill = Array.from(document.querySelectorAll('.cat-pill')).find(p => p.textContent.toLowerCase().includes(cat.toLowerCase()));
+      if (activePill) {
+        activePill.classList.add('border-[var(--text-primary)]', 'bg-[var(--text-primary)]', 'text-[var(--bg-primary)]');
+        activePill.classList.remove('text-[var(--text-muted)]');
+      }
+
+      renderProducts();
+    }
+
+    function filterGender(g) {
+      currentGender = g;
+      document.querySelectorAll('.gender-btn').forEach(b => {
+        b.classList.remove('bg-[var(--surface)]', 'font-semibold', 'shadow-sm');
+        b.classList.add('text-[var(--text-muted)]');
+      });
+      event.target.classList.add('bg-[var(--surface)]', 'font-semibold', 'shadow-sm');
+      event.target.classList.remove('text-[var(--text-muted)]');
+      renderProducts();
+    }
+
+    function sortProducts(val) {
+      currentSort = val;
+      renderProducts();
+    }
+
+    function resetFilters() {
+      currentCategory = 'all';
+      currentGender = 'all';
+      currentSearch = '';
+      filterCategory('all');
+    }
+
+    // --- 6. CART MANAGEMENT ---
+    function quickAddToCart(prodId, size, color) {
+      const product = PRODUCTS.find(p => p.id === prodId);
+      if (!product) return;
+
+      const existingIndex = cart.findIndex(i => i.productId === prodId && i.size === size && i.color === color);
+      if (existingIndex > -1) {
+        cart[existingIndex].quantity += 1;
+      } else {
+        cart.push({
+          id: `${prodId}-${size}-${color}-${Date.now()}`,
+          productId: prodId,
+          name: product.name,
+          price: product.price,
+          image: product.images[0],
+          size: size,
+          color: color,
+          quantity: 1
+        });
+      }
+
+      saveCart();
+      showToast(`Added ${product.name} (${size}) to your bag`);
+      openCartDrawer();
+    }
+
+    function updateCartQuantity(cartItemId, delta) {
+      const idx = cart.findIndex(i => i.id === cartItemId);
+      if (idx > -1) {
+        cart[idx].quantity += delta;
+        if (cart[idx].quantity <= 0) {
+          cart.splice(idx, 1);
+        }
+      }
+      saveCart();
+      renderCart();
+    }
+
+    function removeCartItem(cartItemId) {
+      cart = cart.filter(i => i.id !== cartItemId);
+      saveCart();
+      renderCart();
+    }
+
+    function saveCart() {
+      localStorage.setItem('an_cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    function renderCart() {
+      const container = document.getElementById('cart-items-container');
+      const emptyView = document.getElementById('empty-cart-view');
+      const summaryFooter = document.getElementById('cart-summary-footer');
+      const countPill = document.getElementById('cart-btn-count');
+      const totalPill = document.getElementById('cart-btn-total');
+      const drawerCount = document.getElementById('cart-drawer-count');
+
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const rawSubtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+      countPill.textContent = totalItems;
+      drawerCount.textContent = `(${totalItems} piece${totalItems === 1 ? '' : 's'})`;
+
+      if (totalItems === 0) {
+        container.innerHTML = '';
+        emptyView.classList.remove('hidden');
+        summaryFooter.classList.add('hidden');
+        totalPill.textContent = formatPrice(0);
+        updateShippingMeter(0);
+        return;
+      }
+
+      emptyView.classList.add('hidden');
+      summaryFooter.classList.remove('hidden');
+
+      container.innerHTML = cart.map(item => `
+        <div class="flex gap-4 py-3">
+          <img src="${item.image}" alt="${item.name}" class="w-16 h-20 object-cover rounded-lg bg-[var(--bg-primary)] border border-[var(--border)] shrink-0">
+          <div class="flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start">
+                <h4 class="font-fraunces text-sm font-semibold text-[var(--text-primary)]">${item.name}</h4>
+                <button onclick="removeCartItem('${item.id}')" aria-label="Remove item" class="text-[var(--text-muted)] hover:text-red-500">
+                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+              <p class="font-mono text-[11px] text-[var(--text-muted)] mt-0.5">Size: ${item.size} &bull; ${item.color}</p>
+            </div>
+
+            <div class="flex items-center justify-between pt-2">
+              <div class="flex items-center border border-[var(--border)] rounded-md bg-[var(--bg-primary)]">
+                <button onclick="updateCartQuantity('${item.id}', -1)" class="w-6 h-6 flex items-center justify-center text-xs hover:bg-[var(--surface)]">-</button>
+                <span class="w-6 text-center font-mono text-xs">${item.quantity}</span>
+                <button onclick="updateCartQuantity('${item.id}', 1)" class="w-6 h-6 flex items-center justify-center text-xs hover:bg-[var(--surface)]">+</button>
+              </div>
+              <span class="font-mono text-xs font-semibold text-[var(--text-primary)]">${formatPrice(item.price * item.quantity)}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      const discountAmount = Math.round(rawSubtotal * promoDiscount);
+      const finalTotal = rawSubtotal - discountAmount;
+
+      document.getElementById('cart-subtotal').textContent = formatPrice(rawSubtotal);
+      document.getElementById('cart-total').textContent = formatPrice(finalTotal);
+      document.getElementById('checkout-total-display').textContent = formatPrice(finalTotal);
+      totalPill.textContent = formatPrice(finalTotal);
+
+      const discRow = document.getElementById('cart-discount-row');
+      if (promoDiscount > 0) {
+        discRow.classList.remove('hidden');
+        document.getElementById('cart-discount').textContent = `-${formatPrice(discountAmount)}`;
+      } else {
+        discRow.classList.add('hidden');
+      }
+
+      updateShippingMeter(rawSubtotal);
+      lucide.createIcons();
+    }
+
+    function updateShippingMeter(subtotal) {
+      const freeShippingThreshold = 150;
+      const meterBar = document.getElementById('shipping-meter-bar');
+      const meterText = document.getElementById('shipping-meter-text');
+      const meterStatus = document.getElementById('shipping-meter-status');
+
+      if (subtotal >= freeShippingThreshold) {
+        meterBar.style.width = '100%';
+        meterText.textContent = 'You unlocked Free Worldwide Express Shipping';
+        meterStatus.textContent = 'FREE';
+      } else {
+        const pct = Math.min(100, Math.round((subtotal / freeShippingThreshold) * 100));
+        const rem = freeShippingThreshold - subtotal;
+        meterBar.style.width = `${pct}%`;
+        meterText.textContent = `Add ${formatPrice(rem)} more for Free Shipping`;
+        meterStatus.textContent = `${pct}%`;
+      }
+    }
+
+    function applyPromoCode(e) {
+      e.preventDefault();
+      const code = document.getElementById('promo-input').value.trim().toUpperCase();
+      if (code === 'ATELIER10' || code === 'WELCOME10') {
+        promoDiscount = 0.10;
+        showToast('Promo code applied! 10% discount added.');
+        renderCart();
+      } else {
+        showToast('Invalid promo code. Try ATELIER10');
+      }
+    }
+
+    function openCartDrawer() {
+      const drawer = document.getElementById('cart-drawer');
+      const panel = document.getElementById('cart-drawer-panel');
+      drawer.classList.remove('opacity-0', 'pointer-events-none');
+      panel.classList.remove('translate-x-full');
+      renderCart();
+    }
+
+    function closeCartDrawer() {
+      const drawer = document.getElementById('cart-drawer');
+      const panel = document.getElementById('cart-drawer-panel');
+      drawer.classList.add('opacity-0', 'pointer-events-none');
+      panel.classList.add('translate-x-full');
+    }
+
+    // --- 7. PRODUCT QUICK VIEW MODAL ---
+    function openQuickView(prodId) {
+      const p = PRODUCTS.find(item => item.id === prodId);
+      if (!p) return;
+
+      activeQuickViewId = prodId;
+      selectedQvSize = p.sizes[0];
+      selectedQvColor = p.colors[0].name;
+
+      document.getElementById('qv-title').textContent = p.name;
+      document.getElementById('qv-category').textContent = `${p.category.toUpperCase()} &bull; ${p.gender.toUpperCase()}`;
+      document.getElementById('qv-price').textContent = formatPrice(p.price);
+      document.getElementById('qv-desc').textContent = p.description;
+      document.getElementById('qv-comp').textContent = p.composition;
+      document.getElementById('qv-fit').textContent = p.fit;
+      document.getElementById('qv-img').src = p.images[0];
+
+      const origEl = document.getElementById('qv-orig-price');
+      if (p.originalPrice) {
+        origEl.textContent = formatPrice(p.originalPrice);
+        origEl.classList.remove('hidden');
+      } else {
+        origEl.classList.add('hidden');
+      }
+
+      const sizeContainer = document.getElementById('qv-sizes');
+      sizeContainer.innerHTML = p.sizes.map((s, idx) => `
+        <button
+          onclick="selectQvSize('${s}', this)"
+          class="qv-size-btn px-4 py-2 text-xs font-mono rounded-lg border ${idx === 0 ? 'border-[var(--text-primary)] bg-[var(--text-primary)] text-[var(--bg-primary)] font-bold' : 'border-[var(--border)] bg-[var(--surface)] text-[var(--text-primary)]'} transition-colors"
+        >
+          ${s}
+        </button>
+      `).join('');
+
+      const swatchContainer = document.getElementById('qv-color-swatches');
+      swatchContainer.innerHTML = p.colors.map((c, idx) => `
+        <button
+          onclick="selectQvColor('${c.name}', '${c.image}', this)"
+          style="background-color: ${c.hex};"
+          title="${c.name}"
+          class="w-6 h-6 rounded-full border border-black/30 shadow-md ${idx === 0 ? 'ring-2 ring-white ring-offset-2' : ''}"
+        ></button>
+      `).join('');
+
+      document.getElementById('quick-view-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      lucide.createIcons();
+    }
+
+    function selectQvSize(s, btn) {
+      selectedQvSize = s;
+      document.querySelectorAll('.qv-size-btn').forEach(b => {
+        b.classList.remove('border-[var(--text-primary)]', 'bg-[var(--text-primary)]', 'text-[var(--bg-primary)]', 'font-bold');
+        b.classList.add('border-[var(--border)]', 'bg-[var(--surface)]', 'text-[var(--text-primary)]');
+      });
+      btn.classList.add('border-[var(--text-primary)]', 'bg-[var(--text-primary)]', 'text-[var(--bg-primary)]', 'font-bold');
+    }
+
+    function selectQvColor(colorName, colorImg, btn) {
+      selectedQvColor = colorName;
+      document.getElementById('qv-img').src = colorImg;
+      document.querySelectorAll('#qv-color-swatches button').forEach(b => b.classList.remove('ring-2', 'ring-white', 'ring-offset-2'));
+      btn.classList.add('ring-2', 'ring-white', 'ring-offset-2');
+    }
+
+    function submitQuickViewAdd() {
+      if (activeQuickViewId && selectedQvSize) {
+        quickAddToCart(activeQuickViewId, selectedQvSize, selectedQvColor);
+        closeQuickView();
+      }
+    }
+
+    function closeQuickView() {
+      document.getElementById('quick-view-modal').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // --- 8. WISHLIST MANAGEMENT ---
+    function toggleWishlist(prodId) {
+      const idx = wishlist.indexOf(prodId);
+      if (idx > -1) {
+        wishlist.splice(idx, 1);
+        showToast('Removed from wishlist');
+      } else {
+        wishlist.push(prodId);
+        showToast('Saved to wishlist');
+      }
+      localStorage.setItem('an_wishlist', JSON.stringify(wishlist));
+      updateWishlistBadge();
+      renderProducts();
+    }
+
+    function updateWishlistBadge() {
+      const badge = document.getElementById('wishlist-badge');
+      if (wishlist.length > 0) {
+        badge.textContent = wishlist.length;
+        badge.classList.remove('hidden');
+      } else {
+        badge.classList.add('hidden');
+      }
+    }
+
+    function openWishlistDrawer() {
+      const drawer = document.getElementById('wishlist-drawer');
+      const panel = document.getElementById('wishlist-drawer-panel');
+      const container = document.getElementById('wishlist-items-container');
+      const emptyView = document.getElementById('empty-wishlist-view');
+      const countEl = document.getElementById('wishlist-drawer-count');
+
+      drawer.classList.remove('opacity-0', 'pointer-events-none');
+      panel.classList.remove('translate-x-full');
+
+      countEl.textContent = `(${wishlist.length})`;
+
+      if (wishlist.length === 0) {
+        container.innerHTML = '';
+        emptyView.classList.remove('hidden');
+        return;
+      }
+
+      emptyView.classList.add('hidden');
+      const wishlistedProducts = PRODUCTS.filter(p => wishlist.includes(p.id));
+
+      container.innerHTML = wishlistedProducts.map(p => `
+        <div class="flex gap-4 py-3 border-b border-[var(--border-light)]">
+          <img src="${p.images[0]}" alt="${p.name}" class="w-16 h-20 object-cover rounded-lg bg-[var(--bg-primary)] border border-[var(--border)] shrink-0">
+          <div class="flex-1 flex flex-col justify-between">
+            <div>
+              <h4 class="font-fraunces text-sm font-semibold">${p.name}</h4>
+              <p class="font-mono text-xs font-bold text-[var(--accent)] mt-0.5">${formatPrice(p.price)}</p>
+            </div>
+            <div class="flex items-center gap-2 pt-2">
+              <button onclick="quickAddToCart('${p.id}', '${p.sizes[0]}', '${p.colors[0].name}'); closeWishlistDrawer();" class="px-3 py-1 bg-[var(--text-primary)] text-[var(--bg-primary)] text-xs font-mono rounded">
+                Move to Bag
+              </button>
+              <button onclick="toggleWishlist('${p.id}'); openWishlistDrawer();" class="text-xs text-[var(--text-muted)] hover:text-red-500 underline font-mono">
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    function closeWishlistDrawer() {
+      const drawer = document.getElementById('wishlist-drawer');
+      const panel = document.getElementById('wishlist-drawer-panel');
+      drawer.classList.add('opacity-0', 'pointer-events-none');
+      panel.classList.add('translate-x-full');
+    }
+
+    // --- 9. LIVE SEARCH ENGINE ---
+    function openSearchModal() {
+      document.getElementById('search-modal').classList.remove('hidden');
+      document.getElementById('search-input').focus();
+    }
+    function closeSearchModal() {
+      document.getElementById('search-modal').classList.add('hidden');
+    }
+    function handleSearch(query) {
+      currentSearch = query.trim();
+      const resultsContainer = document.getElementById('search-results');
+      if (!currentSearch) {
+        resultsContainer.innerHTML = '<p class="text-xs font-mono text-[var(--text-muted)]">Type to find garments, silhouettes, or fabrics...</p>';
+        return;
+      }
+      const matches = PRODUCTS.filter(p => 
+        p.name.toLowerCase().includes(currentSearch.toLowerCase()) || 
+        p.tagline.toLowerCase().includes(currentSearch.toLowerCase()) ||
+        p.category.toLowerCase().includes(currentSearch.toLowerCase())
+      );
+
+      if (matches.length === 0) {
+        resultsContainer.innerHTML = '<p class="text-xs font-sans text-[var(--text-muted)] py-4">No matching garments found.</p>';
+        return;
+      }
+
+      resultsContainer.innerHTML = matches.map(p => `
+        <div onclick="openQuickView('${p.id}'); closeSearchModal();" class="flex items-center justify-between p-2 rounded-lg hover:bg-[var(--bg-primary)] cursor-pointer">
+          <div class="flex items-center gap-3">
+            <img src="${p.images[0]}" alt="${p.name}" class="w-10 h-12 object-cover rounded bg-[var(--border)]">
+            <div>
+              <h5 class="font-fraunces text-sm font-semibold">${p.name}</h5>
+              <span class="font-mono text-xs text-[var(--text-muted)]">${p.category}</span>
+            </div>
+          </div>
+          <span class="font-mono text-xs font-bold text-[var(--accent)]">${formatPrice(p.price)}</span>
+        </div>
+      `).join('');
+    }
+
+    // --- 10. CHECKOUT MODAL ---
+    function openCheckoutModal() {
+      closeCartDrawer();
+      document.getElementById('checkout-form-container').classList.remove('hidden');
+      document.getElementById('checkout-success-view').classList.add('hidden');
+      document.getElementById('checkout-modal').classList.remove('hidden');
+    }
+    function closeCheckoutModal() {
+      document.getElementById('checkout-modal').classList.add('hidden');
+    }
+    function handlePlaceOrder(e) {
+      e.preventDefault();
+      const btn = document.getElementById('place-order-btn');
+      btn.innerHTML = '<span>Processing Encrypted Payment...</span>';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        document.getElementById('order-id').textContent = `AN-${Math.floor(10000 + Math.random() * 90000)}`;
+        document.getElementById('checkout-form-container').classList.add('hidden');
+        document.getElementById('checkout-success-view').classList.remove('hidden');
+        cart = [];
+        saveCart();
+        btn.innerHTML = '<span>Authorize &amp; Place Order</span>';
+        btn.disabled = false;
+        lucide.createIcons();
+      }, 900);
+    }
+
+    // --- 11. SIZE GUIDE MODAL ---
+    function openSizeGuide() {
+      document.getElementById('size-guide-modal').classList.remove('hidden');
+    }
+    function closeSizeGuide() {
+      document.getElementById('size-guide-modal').classList.add('hidden');
+    }
+
+    // --- 12. MOBILE NAVIGATION ---
+    function toggleMobileNav() {
+      const drawer = document.getElementById('mobile-nav-drawer');
+      const isVisible = !drawer.classList.contains('pointer-events-none');
+      if (isVisible) {
+        drawer.classList.add('opacity-0', 'pointer-events-none');
+        drawer.firstElementChild.classList.add('-translate-x-full');
+      } else {
+        drawer.classList.remove('opacity-0', 'pointer-events-none');
+        drawer.firstElementChild.classList.remove('-translate-x-full');
+      }
+    }
+
+    // --- 13. NEWSLETTER HANDLER ---
+    function handleNewsletter(e) {
+      e.preventDefault();
+      document.getElementById('newsletter-reward').classList.remove('hidden');
+      document.getElementById('newsletter-email').value = '';
+      showToast('10% off code WELCOME10 unlocked!');
+    }
+
+    // --- 14. TOAST ALERTS ---
+    function showToast(msg) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast-anim px-4 py-3 rounded-xl bg-[var(--text-primary)] text-[var(--bg-primary)] font-sans text-xs font-medium shadow-2xl flex items-center gap-2.5 pointer-events-auto border border-white/10';
+      toast.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-[var(--accent)] shrink-0"></i> <span>${msg}</span>`;
+      container.appendChild(toast);
+      lucide.createIcons();
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(20px)';
+        toast.style.transition = 'all 200ms ease';
+        setTimeout(() => toast.remove(), 200);
+      }, 3000);
+    }
+
+    // --- INITIALIZATION ---
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('currency-select').value = currentCurrency;
+      renderProducts();
+      renderCart();
+      updateWishlistBadge();
+      updateHeroPrice();
+      lucide.createIcons();
+    });
+
+    // Close modals on Esc key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeCartDrawer();
+        closeQuickView();
+        closeCheckoutModal();
+        closeSizeGuide();
+        closeWishlistDrawer();
+        closeSearchModal();
+      }
+    });
+  </script>
+</body>
+</html>
